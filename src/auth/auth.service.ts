@@ -30,7 +30,7 @@ export class AuthService {
 
 	async register(dto: AuthDto) {
 		const oldUser = await this.userRepository.findOneBy({ email: dto.email })
-		if (oldUser) throw new BadRequestException('Email занят')
+		if (oldUser) throw new BadRequestException('Email already used')
 
 		const salt = await genSalt(10)
 
@@ -55,11 +55,11 @@ export class AuthService {
 			select: ['id', 'email', 'password']
 		})
 
-		if (!user) throw new NotFoundException('Пользователь не найден!')
+		if (!user) throw new NotFoundException('User not found!')
 
 		const isValidPassword = await compare(dto.password, user.password)
 		if (!isValidPassword)
-			throw new UnauthorizedException('Не правильный пароль!')
+			throw new UnauthorizedException('Wrong password!')
 
 		return user
 	}

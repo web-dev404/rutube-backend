@@ -1,13 +1,12 @@
-import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { UserEntity } from '../user/user.entity'
+import { VideoController } from './video.controller'
 import { VideoEntity } from './video.entity'
-import { VideoService } from './video.service';
-import { VideoController } from './video.controller';
+import { VideoService } from './video.service'
 
 @Module({
-  controllers: [VideoController],
-  providers: [VideoService],
-  imports: [TypeOrmModule.forFeature([VideoEntity])]
+	controllers: [VideoController],
+	providers: [VideoService],
+	imports: [TypeOrmModule.forFeature([VideoEntity])]
 })
 export class VideoModule {}
